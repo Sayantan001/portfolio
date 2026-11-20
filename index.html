@@ -717,7 +717,7 @@ if(!sessionStorage.getItem("booted")){const bo=$("#bo"),bp=$("#bop"),L=["SP-OS v
 {const ck=$("#ck"),cko=$("#cko"),cki=$("#cki"),secs=S.map(s=>s[0]);let started=false;
  const out=t=>{cko.innerHTML+=t+"\n";cko.scrollTop=1e9},open=()=>{ck.style.display="flex";cki.focus();if(!started){started=true;out("<i>SP-OS terminal. Type <b>help</b> to see commands. Try <b>whoami</b>.</i>")}},close=()=>{ck.style.display="none"};
  const goSec=id=>{close();document.getElementById(id).scrollIntoView({behavior:"smooth"})};
- const CMD={help:()=>out("<b>commands</b>: whoami, ls, projects, experience, skills, publications, lab, education, achievements, art, photography, contact, ring art|photos|certs, cv, email, lang, sound, clear, exit"),
+ const CMD={help:()=>out("<b>commands</b>: cd &lt;section&gt; (for example cd about), whoami, ls, projects, experience, skills, publications, lab, education, achievements, art, photography, contact, ring art|photos|certs, cv, email, lang, sound, clear, exit"),
   whoami:()=>out(`${D.name}: ${D.role}.\n${D.facts[1][0]}: ${D.facts[1][1]}. ${D.facts[2][0]}: ${D.facts[2][1]}.`),
   ls:()=>out(secs.join("   ")),cv:()=>{out("opening assets/cv.pdf ...");open&&window.open("assets/cv.pdf","_blank")},
   email:()=>{navigator.clipboard.writeText(D.contact.email);out("copied "+D.contact.email)},lang:()=>$("#lgb").click(),sound:()=>{sdb.click();out("sound "+(snd?"on":"off"))},
@@ -725,7 +725,9 @@ if(!sessionStorage.getItem("booted")){const bo=$("#bo"),bp=$("#bop"),L=["SP-OS v
   ring:a=>{const k={art:"art",photos:"shots",photography:"shots",certs:"ach",achievements:"ach"}[a];if(!k)return out("usage: ring art | photos | certs");close();openRing(k,0)}};
  const run=raw=>{const s=raw.trim();if(!s)return;out(`<b>$</b> ${s.replace(/</g,"&lt;")}`);const[a,...r]=s.toLowerCase().split(/\s+/);
   if(a==="sudo"){if(r.join(" ")==="hire sayantan"){out("[sudo] permission granted. Opening contact...");setTimeout(()=>goSec("contact"),500)}else out("nice try. this incident will be reported (to nobody).");return}
-  if(secs.includes(a)){goSec(a);return}if(CMD[a]){CMD[a](r[0]);return}out(`command not found: ${a}. type <b>help</b>`)};
+  const AL={photos:"photography",certs:"achievements",certificates:"achievements",paper:"publications",papers:"publications",demo:"lab",demos:"lab",top:"home"};
+  if(["cd","open","go","goto","show"].includes(a)){const t=(r[0]||"").replace(/[\/~.]/g,""),sid=AL[t]||t;if(!t||sid==="home"){goSec("home");return}if(secs.includes(sid)){goSec(sid);return}out(`${a}: no such section: ${r[0]}. type <b>ls</b>`);return}
+  if(secs.includes(AL[a]||a)){goSec(AL[a]||a);return}if(CMD[a]){CMD[a](r[0]);return}out(`command not found: ${a}. type <b>help</b>`)};
  cki.addEventListener("keydown",e=>{e.stopPropagation();if(e.key==="Enter"){run(cki.value);cki.value=""}
   else if(e.key==="Escape")close();else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();close()}
   else if(e.key==="Tab"){e.preventDefault();const v=cki.value.toLowerCase(),m=[...secs,...Object.keys(CMD)].filter(x=>x.startsWith(v));if(m.length===1)cki.value=m[0]}});
