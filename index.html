@@ -854,33 +854,112 @@ function quad(t,dt){let gx=Math.sin(t*.5)*4,gz=Math.sin(t)*2;
  dsh.position.set(x,.03,z);dsh.scale.setScalar(.8+y*.08);dsh.material.opacity=.55-y*.06}
 
 /* telemetry + camera views */
-const f=(n,d=2,w=7)=>n.toFixed(d).padStart(w),dg=r=>r*57.2958;let fps=60,lastTele=0;
-function tele(t){let s;
- if(cur<=0)s=`<b>AGV-01</b> | 2D LIDAR\npose  x${f(agv.position.x)} z${f(agv.position.z)} m\nyaw   ${f(((dg(agv.rotation.y)%360)+360)%360,1)} deg\nspeed ${f(agvV)} m/s\nbeams ${RN}, range ${RANGE} m\nhits  ${String(hitCount).padStart(3)} nearest ${f(minR)} m\ntip   click the floor to drive`;
- else if(cur===1)s=`<b>ARM-06</b> | 6-DOF IK\nJ1 ${f(dg(ik.yaw),1)} deg\nJ2 ${f(dg(ik.s),1)} deg\nJ3 ${f(dg(ik.e),1)} deg\nJ5 ${f(dg(ik.w),1)} deg\nJ6 ${f(dg(ik.r6%6.2832),1)} deg`;
- else s=`<b>UAV-03</b> | quadcopter\nalt   ${f(drone.position.y)} m\npitch ${f(dg(drone.rotation.x),1)} deg\nroll  ${f(dg(drone.rotation.z),1)} deg\nrotor ${f(dRpm,0,6)} rpm`;
- $("#tx").innerHTML=s+`\n<span style="color:#6f8c96">simulated | ${fps.toFixed(0)} fps</span>`}
-const VW=[{k:"Mobile robot",c:[-12,9,14],t:[-26,.6,0]},{k:"Robotic arm",c:[6.5,5.5,9],t:[0,2.4,0]},{k:"Quadcopter",c:[34,6.5,10],t:[26,3.4,0]}];
-function go(i){if(i===cur)return;const first=cur<0,v=VW[i];cur=i;[...$("#sw").children].forEach((b,k)=>b.classList.toggle("on",k===i));
-if(typeof gsap!=="undefined"){gsap.killTweensOf([cam.position,ctl.target]);const o={duration:first?3:2.1,ease:"power3.inOut"};gsap.to(cam.position,{x:v.c[0],y:v.c[1],z:v.c[2],...o});gsap.to(ctl.target,{x:v.t[0],y:v.t[1],z:v.t[2],...o});}else{cam.position.set(v.c[0],v.c[1],v.c[2]);ctl.target.set(v.t[0],v.t[1],v.t[2]);ctl.update();}
-VW.forEach((v,i)=>{const b=document.createElement("button");b.className="bt";b.textContent=v.k;b.title=`Key ${i+1}`;b.onclick=()=>go(i);$("#sw").appendChild(b)});
-addEventListener("keydown",e=>{const n=+e.key;if(vis&&n>=1&&n<=3)go(n-1)});
-function rs(){const w=st.clientWidth,h=st.clientHeight;ren.setSize(w,h);cam.aspect=w/h;if(w>820)cam.setViewOffset(w,h,-w*.2,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
-addEventListener("resize",rs);rs();
-new IntersectionObserver(e=>{vis=e[0].isIntersecting},{threshold:.05}).observe($("#home"));
-function loop(){const dt=Math.min(clk.getDelta(),.05)||.016,t=clk.elapsedTime;requestAnimationFrame(loop);if(!vis)return;
- fps+=(1/dt-fps)*.05;agvStep(dt);
- lid.rotation.y=t*6;wheels.forEach(w=>w.rotation.x+=dt*agvV/.34);scan();arm(t,dt);quad(t,dt);
- if(t-lastTele>.12){lastTele=t;tele(t)}ctl.update();ren.render(scene,cam)}
+const f = (n, d = 2, w = 7) => n.toFixed(d).padStart(w), dg = r => r * 57.2958;
+let fps = 60, lastTele = 0;
+
+function tele(t) {
+  let s;
+  if (cur <= 0) s = `<b>AGV-01</b> | 2D LIDAR\npose  x${f(agv.position.x)} z${f(agv.position.z)} m\nyaw   ${f(((dg(agv.rotation.y) % 360) + 360) % 360, 1)} deg\nspeed ${f(agvV)} m/s\nbeams ${RN}, range ${RANGE} m\nhits  ${String(hitCount).padStart(3)} nearest ${f(minR)} m\ntip   click the floor to drive`;
+  else if (cur === 1) s = `<b>ARM-06</b> | 6-DOF IK\nJ1 ${f(dg(ik.yaw), 1)} deg\nJ2 ${f(dg(ik.s), 1)} deg\nJ3 ${f(dg(ik.e), 1)} deg\nJ5 ${f(dg(ik.w), 1)} deg\nJ6 ${f(dg(ik.r6 % 6.2832), 1)} deg`;
+  else s = `<b>UAV-03</b> | quadcopter\nalt   ${f(drone.position.y)} m\npitch ${f(dg(drone.rotation.x), 1)} deg\nroll  ${f(dg(drone.rotation.z), 1)} deg\nrotor ${f(dRpm, 0, 6)} rpm`;
+  $("#tx").innerHTML = s + `\n<span style="color:#6f8c96">simulated | ${fps.toFixed(0)} fps</span>`;
+}
+
+const VW = [
+  { k: "Mobile robot", c: [-12, 9, 14], t: [-26, .6, 0] },
+  { k: "Robotic arm", c: [6.5, 5.5, 9], t: [0, 2.4, 0] },
+  { k: "Quadcopter", c: [34, 6.5, 10], t: [26, 3.4, 0] }
+];
+
+function go(i) {
+  if (i === cur) return;
+  const first = cur < 0, v = VW[i];
+  cur = i;
+  [...$("#sw").children].forEach((b, k) => b.classList.toggle("on", k === i));
+  if (typeof gsap !== "undefined") {
+    gsap.killTweensOf([cam.position, ctl.target]);
+    const o = { duration: first ? 3 : 2.1, ease: "power3.inOut" };
+    gsap.to(cam.position, { x: v.c[0], y: v.c[1], z: v.c[2], ...o });
+    gsap.to(ctl.target, { x: v.t[0], y: v.t[1], z: v.t[2], ...o });
+  } else {
+    cam.position.set(v.c[0], v.c[1], v.c[2]);
+    ctl.target.set(v.t[0], v.t[1], v.t[2]);
+    ctl.update();
+  }
+}
+
+VW.forEach((v, i) => {
+  const b = document.createElement("button");
+  b.className = "bt";
+  b.textContent = v.k;
+  b.title = `Key ${i + 1}`;
+  b.onclick = () => go(i);
+  $("#sw").appendChild(b);
+});
+
+addEventListener("keydown", e => {
+  const n = +e.key;
+  if (vis && n >= 1 && n <= 3) go(n - 1);
+});
+
+function rs() {
+  const w = st.clientWidth, h = st.clientHeight;
+  ren.setSize(w, h);
+  cam.aspect = w / h;
+  if (w > 820) cam.setViewOffset(w, h, -w * .2, 0, w, h);
+  else cam.clearViewOffset();
+  cam.updateProjectionMatrix();
+}
+
+addEventListener("resize", rs);
+rs();
+
+new IntersectionObserver(e => { vis = e[0].isIntersecting; }, { threshold: .05 }).observe($("#home"));
+
+function loop() {
+  const dt = Math.min(clk.getDelta(), .05) || .016, t = clk.elapsedTime;
+  requestAnimationFrame(loop);
+  if (!vis) return;
+  fps += (1 / dt - fps) * .05;
+  agvStep(dt);
+  lid.rotation.y = t * 6;
+  wheels.forEach(w => w.rotation.x += dt * agvV / .34);
+  scan();
+  arm(t, dt);
+  quad(t, dt);
+  if (t - lastTele > .12) { lastTele = t; tele(t); }
+  ctl.update();
+  ren.render(scene, cam);
+}
+
 /* mobile-robot view: click the floor and the AGV plans a route around the pillars and drives there */
-{let dn=null;const rc=new THREE.Raycaster(),m2=new THREE.Vector2(),fl=new THREE.Plane(new THREE.Vector3(0,1,0),0),hv=new THREE.Vector3();
- ren.domElement.addEventListener("pointerdown",e=>{dn=[e.clientX,e.clientY]});
- ren.domElement.addEventListener("pointerup",e=>{if(!dn||cur!==0)return;const mv=Math.hypot(e.clientX-dn[0],e.clientY-dn[1]);dn=null;if(mv>6)return;
-  const r=st.getBoundingClientRect();m2.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);rc.setFromCamera(m2,cam);
-  if(!rc.ray.intersectPlane(fl,hv))return;const gx=hv.x-sa.position.x,gz=hv.z;
-  if(Math.hypot(gx,gz)>ARENA-1.2||OB.some(([ox,oz,r2])=>Math.hypot(gx-ox,gz-oz)<r2+1.0))return;
-  const p=plan(agv.position.x,agv.position.z,gx,gz);if(!p)return;agvMode="go";agvHold=1.2;setPath(p);goalM.position.set(gx,.05,gz);goalM.visible=true})}
-loop();setTimeout(()=>go(0),400);
+{
+  let dn = null;
+  const rc = new THREE.Raycaster(), m2 = new THREE.Vector2(), fl = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hv = new THREE.Vector3();
+  ren.domElement.addEventListener("pointerdown", e => { dn = [e.clientX, e.clientY]; });
+  ren.domElement.addEventListener("pointerup", e => {
+    if (!dn || cur !== 0) return;
+    const mv = Math.hypot(e.clientX - dn[0], e.clientY - dn[1]);
+    dn = null;
+    if (mv > 6) return;
+    const r = st.getBoundingClientRect();
+    m2.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    rc.setFromCamera(m2, cam);
+    if (!rc.ray.intersectPlane(fl, hv)) return;
+    const gx = hv.x - sa.position.x, gz = hv.z;
+    if (Math.hypot(gx, gz) > ARENA - 1.2 || OB.some(([ox, oz, r2]) => Math.hypot(gx - ox, gz - oz) < r2 + 1.0)) return;
+    const p = plan(agv.position.x, agv.position.z, gx, gz);
+    if (!p) return;
+    agvMode = "go";
+    agvHold = 1.2;
+    setPath(p);
+    goalM.position.set(gx, .05, gz);
+    goalM.visible = true;
+  });
+}
+
+loop();
+setTimeout(() => go(0), 400);
 })();
 </script>
 </body>
