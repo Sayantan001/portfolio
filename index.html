@@ -862,8 +862,7 @@ function tele(t){let s;
  $("#tx").innerHTML=s+`\n<span style="color:#6f8c96">simulated | ${fps.toFixed(0)} fps</span>`}
 const VW=[{k:"Mobile robot",c:[-12,9,14],t:[-26,.6,0]},{k:"Robotic arm",c:[6.5,5.5,9],t:[0,2.4,0]},{k:"Quadcopter",c:[34,6.5,10],t:[26,3.4,0]}];
 function go(i){if(i===cur)return;const first=cur<0,v=VW[i];cur=i;[...$("#sw").children].forEach((b,k)=>b.classList.toggle("on",k===i));
- gsap.killTweensOf([cam.position,ctl.target]);const o={duration:first?3:2.1,ease:"power3.inOut"};
- gsap.to(cam.position,{x:v.c[0],y:v.c[1],z:v.c[2],...o});gsap.to(ctl.target,{x:v.t[0],y:v.t[1],z:v.t[2],...o})}
+if(typeof gsap!=="undefined"){gsap.killTweensOf([cam.position,ctl.target]);const o={duration:first?3:2.1,ease:"power3.inOut"};gsap.to(cam.position,{x:v.c[0],y:v.c[1],z:v.c[2],...o});gsap.to(ctl.target,{x:v.t[0],y:v.t[1],z:v.t[2],...o});}else{cam.position.set(v.c[0],v.c[1],v.c[2]);ctl.target.set(v.t[0],v.t[1],v.t[2]);ctl.update();}
 VW.forEach((v,i)=>{const b=document.createElement("button");b.className="bt";b.textContent=v.k;b.title=`Key ${i+1}`;b.onclick=()=>go(i);$("#sw").appendChild(b)});
 addEventListener("keydown",e=>{const n=+e.key;if(vis&&n>=1&&n<=3)go(n-1)});
 function rs(){const w=st.clientWidth,h=st.clientHeight;ren.setSize(w,h);cam.aspect=w/h;if(w>820)cam.setViewOffset(w,h,-w*.2,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
