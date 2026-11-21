@@ -371,6 +371,14 @@ h3.sub{font-size:22px;color:#fff;margin:34px 0 10px}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
+/* fallback if the GSAP CDN is blocked or fails to load (some networks, ad blockers, crawlers): a tiny tween helper with the same calls */
+if(!window.gsap){window.gsap={killTweensOf(a){[].concat(a).forEach(o=>{if(o&&o._tw)o._tw.k=1})},
+ to(t,v){if(typeof t==="string"){document.querySelectorAll(t).forEach(e=>{if(v.opacity!==undefined)e.style.opacity=v.opacity;if(v.y!==undefined||v.x!==undefined)e.style.transform=`translate(${v.x||0}px,${v.y||0}px)`});if(v.onComplete)v.onComplete();return}
+  const ks=Object.keys(v).filter(k=>!["duration","ease","delay","onUpdate","onComplete"].includes(k)),f0={};ks.forEach(k=>f0[k]=t[k]);const d=(v.duration||.5)*1e3,t0=performance.now(),tw={k:0};t._tw=tw;
+  (function f(n){if(tw.k)return;const p=Math.min(1,(n-t0)/d),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;ks.forEach(k=>{t[k]=f0[k]+(v[k]-f0[k])*e});if(v.onUpdate)v.onUpdate();if(p<1)requestAnimationFrame(f);else if(v.onComplete)v.onComplete()})(t0)},
+ fromTo(t,a,b){this.to(t,b)}}}
+</script>
+<script>
 (()=>{
 /* =====================================================================
    EDIT YOUR CONTENT HERE. Everything on the page comes from this object.
