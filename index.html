@@ -305,7 +305,40 @@ h3.sub{font-size:22px;color:#fff;margin:34px 0 10px}
 #cr.hv{width:48px;height:48px;border-color:var(--m)}
 .rp{position:fixed;width:10px;height:10px;margin:-5px;border:2px solid var(--c);border-radius:50%;pointer-events:none;z-index:199;animation:rpl .7s ease-out forwards}
 @keyframes rpl{to{transform:scale(9);opacity:0}}
-@media(prefers-reduced-motion:reduce){.btn,.bt{animation:none!important}#hr::after,.ring::before,.blob,.orb,.orb2,.pe,.chip,.open::before,.sc,#rr .mq span,.skd::before,.skd::after,.rover::after,.rp,.vs-orb,.vs-beam,.pc,.rg-orbit i,.beam,.fl{animation:none!important}}
+.edu{position:relative;padding-left:62px}
+.edu::before{content:"";position:absolute;left:21px;top:24px;bottom:24px;width:2px;background:linear-gradient(var(--m),var(--c) 60%,transparent)}
+.edu::after{content:"";position:absolute;left:16px;top:24px;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 14px 3px var(--c);animation:pdown 6s linear infinite;pointer-events:none}
+@keyframes pdown{0%{top:24px;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:calc(100% - 36px);opacity:0}}
+.es{position:relative;display:grid;grid-template-columns:200px 1fr 130px;gap:24px;align-items:center;padding:18px 22px 18px 18px;margin-bottom:28px;background:rgba(10,16,32,.86);border:1px solid var(--ln);clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px));transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s}
+.es:hover{transform:translateX(10px);border-color:var(--c);background:rgba(14,24,46,.92)}
+.es.cur{border-color:rgba(255,63,210,.55)}
+.es.cur::before{content:"";position:absolute;inset:0;padding:1.5px;background:conic-gradient(from var(--ang),transparent 55%,var(--m),transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:angle 5s linear infinite;pointer-events:none}
+.es-node{position:absolute;left:-49px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--bg);border:3px solid var(--c);box-shadow:0 0 14px var(--c);transition:transform .3s}
+.es:hover .es-node{transform:scale(1.5)}
+.es.cur .es-node{background:var(--m);border-color:var(--m);box-shadow:0 0 0 0 rgba(255,63,210,.7);animation:nodep 1.8s ease-out infinite}
+@keyframes nodep{to{box-shadow:0 0 0 18px rgba(255,63,210,0)}}
+.es-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#0d1a2e,#1d0f30);border:1px solid var(--ln)}
+.es-img::before{content:"";position:absolute;inset:-20px;background:var(--b) center/cover;filter:blur(16px) brightness(.5)}
+.es-img img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;display:block}
+.es-ini{display:none;position:absolute;inset:0;z-index:2;align-items:center;justify-content:center;font:700 46px 'Chakra Petch',sans-serif;letter-spacing:.06em;color:transparent;-webkit-text-stroke:1.5px var(--c)}
+.es-img.x::before{display:none}.es-img.x img{display:none}.es-img.x .es-ini{display:flex}
+.es-img.x::after{content:"";position:absolute;inset:14%;border:1px dashed rgba(25,240,255,.5);border-radius:50%;animation:spin 18s linear infinite}
+.es-body h3{font-size:19px;color:#fff;line-height:1.3}.es-body .mt{color:var(--c);font-size:14px;margin-top:4px}.es-body .tags{margin:10px 0 0}
+.es-g{position:relative;width:124px;height:124px;justify-self:end}
+.es-g svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
+.es-g circle{fill:none;stroke-width:7}.es-g .bg{stroke:rgba(25,240,255,.14)}
+.es-g .fg{stroke:var(--c);stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 6px var(--c));transition:stroke-dashoffset 1.8s cubic-bezier(.2,.8,.2,1)}
+.es.in .fg{stroke-dashoffset:calc(100 - var(--p))}
+.es.cur .fg{stroke:var(--m);stroke-dasharray:28 72;stroke-dashoffset:0;transform-origin:50% 50%;animation:gspin 2.4s linear infinite;filter:drop-shadow(0 0 6px var(--m))}
+@keyframes gspin{to{transform:rotate(360deg)}}
+.es-g b{position:absolute;left:0;right:0;top:33%;text-align:center;font:700 28px/1 'Chakra Petch',sans-serif;color:#fff;text-shadow:0 0 12px rgba(25,240,255,.5)}
+.es-g small{position:absolute;left:4px;right:4px;top:62%;text-align:center;font:10px 'JetBrains Mono',monospace;color:var(--mu);line-height:1.3}
+@media(max-width:820px){.edu{padding-left:38px}.edu::before{left:11px}.edu::after{left:6px}.es{grid-template-columns:1fr;gap:14px}.es-node{left:-34px;top:30px;margin-top:0}.es-g{justify-self:center}}
+.esw{position:relative;margin-bottom:28px}.es{margin-bottom:0}
+.esw:hover .es-node{transform:scale(1.5)}
+.esw.cur .es-node{background:var(--m);border-color:var(--m);box-shadow:0 0 0 0 rgba(255,63,210,.7);animation:nodep 1.8s ease-out infinite}
+.es-body .tags{display:flex;flex-wrap:wrap;gap:6px}.es-body .tags span{border:1px solid var(--m);color:#ffb6ec;padding:1px 10px;font-size:12px}
+@media(prefers-reduced-motion:reduce){.btn,.bt{animation:none!important}#hr::after,.ring::before,.blob,.orb,.orb2,.pe,.chip,.open::before,.sc,#rr .mq span,.skd::before,.skd::after,.rover::after,.rp,.edu::after,.es.cur::before,.es.cur .fg,.esw.cur .es-node,.es-img.x::after,.vs-orb,.vs-beam,.pc,.rg-orbit i,.beam,.fl{animation:none!important}}
 @media(max-width:820px){.pw{max-width:300px}}
 @media(max-width:820px){.card,.about{grid-template-columns:1fr}.m{max-height:240px}.about .m{max-width:200px}#tele{display:none}.hero{top:42%}#sw button{padding:7px 10px;font-size:13px}}
 </style>
@@ -400,11 +433,11 @@ const D={
   {t:"Integrating Intelligent Chatbots in Healthcare: AI Based Healthcare Chatbot",img:"assets/publications/healthcare-chatbot.png",u:"https://ieeexplore.ieee.org/abstract/document/10990617",
    m:"Sushmit Singh Rathore, Rohit Ghosh, Sayantam Giri, Agniva Mukherjee, Priyanshu Raj, Sayantan Panda, S. Latha, Samiappan Dhanalakshmi (SRMIST, India)",
    d:"An AI-powered healthcare chatbot offering accessible, timely, evidence-based guidance to patients with a range of symptoms, improving the first point of patient contact."}],
- edu:[
-  {t:"Master of Science, Mobile Robotics",m:"University of Bonn, Germany | In progress"},
-  {t:"Bachelor of Technology, Electronics and Communication Engineering",m:"S.R.M Institute of Science and Technology | CGPA 9.61 / 10 | May 2025"},
-  {t:"Higher Secondary, Pure Science",m:"Pathfinder Higher Secondary Public School | 72%"},
-  {t:"Secondary",m:"Belda Gangadhar Academy | 92%"}],
+ edu:[   /* img: optional picture or logo of the institute, saved in assets/education/ . ini: letters shown until the picture exists. g: ring fill 0-100 (null = in progress). gv: number shown. */
+  {t:"Master of Science, Mobile Robotics",m:"University of Bonn, Germany | In progress",img:"assets/education/msc.jpg",ini:"UB",g:null,gl:"In progress",tags:["SLAM","Navigation","Localization","ROS 2"]},
+  {t:"Bachelor of Technology, Electronics and Communication Engineering",m:"S.R.M Institute of Science and Technology | Graduated May 2025",img:"assets/education/btech.jpg",ini:"SRM",g:96.1,gv:9.61,gs:"",gd:2,gl:"CGPA out of 10"},
+  {t:"Higher Secondary, Pure Science",m:"Pathfinder Higher Secondary Public School",img:"assets/education/higher-secondary.jpg",ini:"PF",g:72,gv:72,gs:"%",gd:0,gl:"Higher sec."},
+  {t:"Secondary",m:"Belda Gangadhar Academy",img:"assets/education/secondary.jpg",ini:"BG",g:92,gv:92,gs:"%",gd:0,gl:"Secondary"}],
  ach:{dir:"assets/achievements/",count:31,pdf:[1,2,3,4,5,6,8,28,29,30,31]},   /* files: 1.jpg ... 31.jpg (+ N.pdf for the PDF ones), thumbnails in achievements/thumbs/ */
  art:{dir:"assets/explore/art/",prefix:"art",count:9,ext:"jpg"},
  shots:{dir:"assets/explore/photography/",prefix:"photo",count:16,ext:"jpg"}
@@ -439,7 +472,7 @@ const S=[
  ["skills","Skills",`<div class="skx"><div class="sph"><canvas id="sk3" aria-label="Skills sphere"></canvas><small>drag or move your cursor over the sphere</small></div><div class="skc">${D.skills.map(([g,l],i)=>`<div class="skd" style="--i:${i};--cc:${SKC[i%SKC.length]}"><h3>${g}</h3>${l.split(", ").map((x,k)=>`<span style="--k:${k}">${x}</span>`).join("")}</div>`).join("")}</div></div>`],
  ["publications","Publications",`${D.pubs.map(cardOf("b")).join("")}<h3 class="sub">Collaboration network</h3><canvas id="net" aria-label="Co-author network"></canvas><p class="hint">Drag the dots. Magenta squares are papers, cyan dots are co-authors.</p>`],
  ["lab","Lab",`<p class="lead">Two small demos running live in this page: how a robot finds out where it is, and how it plans a route.</p><div class="lab"><div class="labt"><button class="bt on" data-t="pf">Particle filter</button><button class="bt" data-t="as">A* path planner</button></div><div class="labbox"><canvas id="labc" width="960" height="540"></canvas></div><p id="labtxt" class="hint"></p></div>`],
- ["education","Education",D.edu.map(cardOf()).join("")],
+ ["education","Education",`<div class="edu">${D.edu.map((e,i)=>`<div class="esw${e.g===null?" cur":""}"><i class="es-node"></i><article class="es${e.g===null?" cur":""}" style="--i:${i}" data-g="${e.g===null?0:e.g}"><div class="es-img" style="--b:url('${e.img}')"><img src="${e.img}" alt="${e.t}" loading="lazy" onerror="this.parentNode.classList.add('x')"><span class="es-ini">${e.ini}</span></div><div class="es-body"><h3>${e.t}</h3><p class="mt">${e.m}</p>${e.tags?`<div class="tags">${e.tags.map(t=>`<span>${t}</span>`).join("")}</div>`:""}</div><div class="es-g"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="44"/><circle class="fg" cx="50" cy="50" r="44" pathLength="100"/></svg>${e.g===null?"<b>Now</b>":`<b data-v="${e.gv}" data-d="${e.gd}" data-s="${e.gs}">0${e.gs}</b>`}<small>${e.gl}</small></div></article></div>`).join("")}</div>`],
  ["achievements","Achievements",prev("ach")],
  ["art","Art",`<p style="margin-bottom:18px;color:var(--mu)">Robots and art coexist in my universe.</p>${prev("art")}`],
  ["photography","Photography",`<p style="margin-bottom:18px;color:var(--mu)">Photography is my way of capturing the magic around me.</p>${prev("shots")}`],
@@ -562,6 +595,11 @@ addEventListener("keydown",e=>{if(!RG.open||lb.style.display==="flex")return;
    if(h){c.shadowColor=`rgb(${w.c})`;c.shadowBlur=14}c.fillText(w.t,w.sx,w.sy);c.shadowBlur=0}
  })()}
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.3});document.querySelectorAll(".skd").forEach(s=>io.observe(s))}
+
+/* education: rings fill and numbers count up when each stage scrolls into view */
+{const io=new IntersectionObserver(l=>l.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);el.style.setProperty("--p",el.dataset.g);el.classList.add("in");
+ const b=el.querySelector(".es-g b[data-v]");if(b){const v=+b.dataset.v,d=+b.dataset.d,s=b.dataset.s,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1600),k2=1-Math.pow(1-k,3);b.textContent=(v*k2).toFixed(d)+s;if(k<1)requestAnimationFrame(f)})(t0)}}),{threshold:.35});
+ document.querySelectorAll(".es").forEach(x=>io.observe(x))}
 
 /* side rails: section dots + progress on the left, scrolling name + scroll percent on the right */
 {const rl=document.createElement("nav");rl.id="rl";rl.setAttribute("aria-label","Section progress");
@@ -739,7 +777,7 @@ const DE={"About":"Über mich","Projects":"Projekte","Experience":"Erfahrung","S
  "Hi, I’m":"Hallo, ich bin","See my projects":"Meine Projekte","Contact me":"Kontakt aufnehmen","Mobile robot":"Mobiler Roboter","Robotic arm":"Roboterarm","Quadcopter":"Quadrocopter","Show full project":"Gesamtes Projekt anzeigen","Show full publication":"Gesamte Publikation anzeigen","Read the paper":"Paper lesen","Contact form":"Kontaktformular","Download CV":"Lebenslauf herunterladen","Copy email":"E-Mail kopieren","Close":"Schließen","Open PDF":"PDF öffnen",
  "Let’s create something extraordinary together.":"Lass uns gemeinsam etwas Außergewöhnliches schaffen.","Robots and art coexist in my universe.":"In meinem Universum leben Roboter und Kunst nebeneinander.","Photography is my way of capturing the magic around me.":"Die Fotografie ist meine Art, die Magie um mich herum festzuhalten.",
  "drag or move your cursor over the sphere":"ziehe oder bewege den Cursor über die Kugel","Collaboration network":"Kooperationsnetzwerk","Drag the dots. Magenta squares are papers, cyan dots are co-authors.":"Ziehe die Punkte. Magentafarbene Quadrate sind Paper, cyanfarbene Punkte sind Co-Autoren.",
- "Particle filter":"Partikelfilter","A* path planner":"A*-Routenplaner","Two small demos running live in this page: how a robot finds out where it is, and how it plans a route.":"Zwei kleine Live-Demos: wie ein Roboter herausfindet, wo er ist, und wie er eine Route plant."};
+ "In progress":"Laufend","Now":"Jetzt","CGPA out of 10":"CGPA von 10","Higher secondary":"Höhere Schule","Secondary":"Sekundarstufe","Particle filter":"Partikelfilter","A* path planner":"A*-Routenplaner","Two small demos running live in this page: how a robot finds out where it is, and how it plans a route.":"Zwei kleine Live-Demos: wie ein Roboter herausfindet, wo er ist, und wie er eine Route plant."};
 function applyLang(){const lb=$("#lgb");lb.textContent=LANG==="de"?"EN":"DE";lb.onclick=()=>{localStorage.setItem("lang",LANG==="de"?"en":"de");location.reload()};if(LANG!=="de")return;
  const rxs=[[/^Show all (\d+)$/,"Alle $1 anzeigen"],[/^(\d+) pictures$/,"$1 Bilder"]],tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
  while(n=tw.nextNode()){if(/^(SCRIPT|STYLE|NOSCRIPT)$/.test(n.parentNode.tagName))continue;const t=n.nodeValue.trim();if(!t)continue;let r=DE[t];if(!r)for(const[a,b]of rxs)if(a.test(t)){r=t.replace(a,b);break}if(r)n.nodeValue=n.nodeValue.replace(t,r)}
@@ -854,112 +892,34 @@ function quad(t,dt){let gx=Math.sin(t*.5)*4,gz=Math.sin(t)*2;
  dsh.position.set(x,.03,z);dsh.scale.setScalar(.8+y*.08);dsh.material.opacity=.55-y*.06}
 
 /* telemetry + camera views */
-const f = (n, d = 2, w = 7) => n.toFixed(d).padStart(w), dg = r => r * 57.2958;
-let fps = 60, lastTele = 0;
-
-function tele(t) {
-  let s;
-  if (cur <= 0) s = `<b>AGV-01</b> | 2D LIDAR\npose  x${f(agv.position.x)} z${f(agv.position.z)} m\nyaw   ${f(((dg(agv.rotation.y) % 360) + 360) % 360, 1)} deg\nspeed ${f(agvV)} m/s\nbeams ${RN}, range ${RANGE} m\nhits  ${String(hitCount).padStart(3)} nearest ${f(minR)} m\ntip   click the floor to drive`;
-  else if (cur === 1) s = `<b>ARM-06</b> | 6-DOF IK\nJ1 ${f(dg(ik.yaw), 1)} deg\nJ2 ${f(dg(ik.s), 1)} deg\nJ3 ${f(dg(ik.e), 1)} deg\nJ5 ${f(dg(ik.w), 1)} deg\nJ6 ${f(dg(ik.r6 % 6.2832), 1)} deg`;
-  else s = `<b>UAV-03</b> | quadcopter\nalt   ${f(drone.position.y)} m\npitch ${f(dg(drone.rotation.x), 1)} deg\nroll  ${f(dg(drone.rotation.z), 1)} deg\nrotor ${f(dRpm, 0, 6)} rpm`;
-  $("#tx").innerHTML = s + `\n<span style="color:#6f8c96">simulated | ${fps.toFixed(0)} fps</span>`;
-}
-
-const VW = [
-  { k: "Mobile robot", c: [-12, 9, 14], t: [-26, .6, 0] },
-  { k: "Robotic arm", c: [6.5, 5.5, 9], t: [0, 2.4, 0] },
-  { k: "Quadcopter", c: [34, 6.5, 10], t: [26, 3.4, 0] }
-];
-
-function go(i) {
-  if (i === cur) return;
-  const first = cur < 0, v = VW[i];
-  cur = i;
-  [...$("#sw").children].forEach((b, k) => b.classList.toggle("on", k === i));
-  if (typeof gsap !== "undefined") {
-    gsap.killTweensOf([cam.position, ctl.target]);
-    const o = { duration: first ? 3 : 2.1, ease: "power3.inOut" };
-    gsap.to(cam.position, { x: v.c[0], y: v.c[1], z: v.c[2], ...o });
-    gsap.to(ctl.target, { x: v.t[0], y: v.t[1], z: v.t[2], ...o });
-  } else {
-    cam.position.set(v.c[0], v.c[1], v.c[2]);
-    ctl.target.set(v.t[0], v.t[1], v.t[2]);
-    ctl.update();
-  }
-}
-
-VW.forEach((v, i) => {
-  const b = document.createElement("button");
-  b.className = "bt";
-  b.textContent = v.k;
-  b.title = `Key ${i + 1}`;
-  b.onclick = () => go(i);
-  $("#sw").appendChild(b);
-});
-
-addEventListener("keydown", e => {
-  const n = +e.key;
-  if (vis && n >= 1 && n <= 3) go(n - 1);
-});
-
-function rs() {
-  const w = st.clientWidth, h = st.clientHeight;
-  ren.setSize(w, h);
-  cam.aspect = w / h;
-  if (w > 820) cam.setViewOffset(w, h, -w * .2, 0, w, h);
-  else cam.clearViewOffset();
-  cam.updateProjectionMatrix();
-}
-
-addEventListener("resize", rs);
-rs();
-
-new IntersectionObserver(e => { vis = e[0].isIntersecting; }, { threshold: .05 }).observe($("#home"));
-
-function loop() {
-  const dt = Math.min(clk.getDelta(), .05) || .016, t = clk.elapsedTime;
-  requestAnimationFrame(loop);
-  if (!vis) return;
-  fps += (1 / dt - fps) * .05;
-  agvStep(dt);
-  lid.rotation.y = t * 6;
-  wheels.forEach(w => w.rotation.x += dt * agvV / .34);
-  scan();
-  arm(t, dt);
-  quad(t, dt);
-  if (t - lastTele > .12) { lastTele = t; tele(t); }
-  ctl.update();
-  ren.render(scene, cam);
-}
-
+const f=(n,d=2,w=7)=>n.toFixed(d).padStart(w),dg=r=>r*57.2958;let fps=60,lastTele=0;
+function tele(t){let s;
+ if(cur<=0)s=`<b>AGV-01</b> | 2D LIDAR\npose  x${f(agv.position.x)} z${f(agv.position.z)} m\nyaw   ${f(((dg(agv.rotation.y)%360)+360)%360,1)} deg\nspeed ${f(agvV)} m/s\nbeams ${RN}, range ${RANGE} m\nhits  ${String(hitCount).padStart(3)} nearest ${f(minR)} m\ntip   click the floor to drive`;
+ else if(cur===1)s=`<b>ARM-06</b> | 6-DOF IK\nJ1 ${f(dg(ik.yaw),1)} deg\nJ2 ${f(dg(ik.s),1)} deg\nJ3 ${f(dg(ik.e),1)} deg\nJ5 ${f(dg(ik.w),1)} deg\nJ6 ${f(dg(ik.r6%6.2832),1)} deg`;
+ else s=`<b>UAV-03</b> | quadcopter\nalt   ${f(drone.position.y)} m\npitch ${f(dg(drone.rotation.x),1)} deg\nroll  ${f(dg(drone.rotation.z),1)} deg\nrotor ${f(dRpm,0,6)} rpm`;
+ $("#tx").innerHTML=s+`\n<span style="color:#6f8c96">simulated | ${fps.toFixed(0)} fps</span>`}
+const VW=[{k:"Mobile robot",c:[-12,9,14],t:[-26,.6,0]},{k:"Robotic arm",c:[6.5,5.5,9],t:[0,2.4,0]},{k:"Quadcopter",c:[34,6.5,10],t:[26,3.4,0]}];
+function go(i){if(i===cur)return;const first=cur<0,v=VW[i];cur=i;[...$("#sw").children].forEach((b,k)=>b.classList.toggle("on",k===i));
+ gsap.killTweensOf([cam.position,ctl.target]);const o={duration:first?3:2.1,ease:"power3.inOut"};
+ gsap.to(cam.position,{x:v.c[0],y:v.c[1],z:v.c[2],...o});gsap.to(ctl.target,{x:v.t[0],y:v.t[1],z:v.t[2],...o})}
+VW.forEach((v,i)=>{const b=document.createElement("button");b.className="bt";b.textContent=v.k;b.title=`Key ${i+1}`;b.onclick=()=>go(i);$("#sw").appendChild(b)});
+addEventListener("keydown",e=>{const n=+e.key;if(vis&&n>=1&&n<=3)go(n-1)});
+function rs(){const w=st.clientWidth,h=st.clientHeight;ren.setSize(w,h);cam.aspect=w/h;if(w>820)cam.setViewOffset(w,h,-w*.2,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
+addEventListener("resize",rs);rs();
+new IntersectionObserver(e=>{vis=e[0].isIntersecting},{threshold:.05}).observe($("#home"));
+function loop(){const dt=Math.min(clk.getDelta(),.05)||.016,t=clk.elapsedTime;requestAnimationFrame(loop);if(!vis)return;
+ fps+=(1/dt-fps)*.05;agvStep(dt);
+ lid.rotation.y=t*6;wheels.forEach(w=>w.rotation.x+=dt*agvV/.34);scan();arm(t,dt);quad(t,dt);
+ if(t-lastTele>.12){lastTele=t;tele(t)}ctl.update();ren.render(scene,cam)}
 /* mobile-robot view: click the floor and the AGV plans a route around the pillars and drives there */
-{
-  let dn = null;
-  const rc = new THREE.Raycaster(), m2 = new THREE.Vector2(), fl = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hv = new THREE.Vector3();
-  ren.domElement.addEventListener("pointerdown", e => { dn = [e.clientX, e.clientY]; });
-  ren.domElement.addEventListener("pointerup", e => {
-    if (!dn || cur !== 0) return;
-    const mv = Math.hypot(e.clientX - dn[0], e.clientY - dn[1]);
-    dn = null;
-    if (mv > 6) return;
-    const r = st.getBoundingClientRect();
-    m2.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-    rc.setFromCamera(m2, cam);
-    if (!rc.ray.intersectPlane(fl, hv)) return;
-    const gx = hv.x - sa.position.x, gz = hv.z;
-    if (Math.hypot(gx, gz) > ARENA - 1.2 || OB.some(([ox, oz, r2]) => Math.hypot(gx - ox, gz - oz) < r2 + 1.0)) return;
-    const p = plan(agv.position.x, agv.position.z, gx, gz);
-    if (!p) return;
-    agvMode = "go";
-    agvHold = 1.2;
-    setPath(p);
-    goalM.position.set(gx, .05, gz);
-    goalM.visible = true;
-  });
-}
-
-loop();
-setTimeout(() => go(0), 400);
+{let dn=null;const rc=new THREE.Raycaster(),m2=new THREE.Vector2(),fl=new THREE.Plane(new THREE.Vector3(0,1,0),0),hv=new THREE.Vector3();
+ ren.domElement.addEventListener("pointerdown",e=>{dn=[e.clientX,e.clientY]});
+ ren.domElement.addEventListener("pointerup",e=>{if(!dn||cur!==0)return;const mv=Math.hypot(e.clientX-dn[0],e.clientY-dn[1]);dn=null;if(mv>6)return;
+  const r=st.getBoundingClientRect();m2.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);rc.setFromCamera(m2,cam);
+  if(!rc.ray.intersectPlane(fl,hv))return;const gx=hv.x-sa.position.x,gz=hv.z;
+  if(Math.hypot(gx,gz)>ARENA-1.2||OB.some(([ox,oz,r2])=>Math.hypot(gx-ox,gz-oz)<r2+1.0))return;
+  const p=plan(agv.position.x,agv.position.z,gx,gz);if(!p)return;agvMode="go";agvHold=1.2;setPath(p);goalM.position.set(gx,.05,gz);goalM.visible=true})}
+loop();setTimeout(()=>go(0),400);
 })();
 </script>
 </body>
