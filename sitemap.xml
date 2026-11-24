@@ -5,4 +5,9 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url><loc>https://www.sayantanpanda.in/projects/greenvault.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sayantanpanda.in/projects/plugpal.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sayantanpanda.in/projects/emma.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sayantanpanda.in/projects/avitron.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sayantanpanda.in/projects/gait-analysis.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
