@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>/* back from a project page: keep the shutter shut from the very first paint, so the top of the page never flashes */
+try{if(sessionStorage.getItem("pjback")||location.hash==="#projects"){document.documentElement.classList.add("pjin");if("scrollRestoration" in history)history.scrollRestoration="manual";if(location.hash)history.replaceState(null,"",location.pathname+location.search)}}catch(e){}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sayantan Panda – Roboticist and Embedded Systems Developer</title>
 <meta name="description" content="Portfolio of Sayantan Panda: robotics, embedded systems and AI projects, research publications, experience and achievements.">
@@ -359,45 +361,55 @@ h3.sub{font-size:22px;color:#fff;margin:34px 0 10px}
 .pat .bt.pj{border-color:rgb(var(--pc))}
 .pat-seal{position:absolute;right:-34px;bottom:-34px;width:120px;height:120px;border-radius:50%;border:1px dashed rgba(var(--pc),.4);box-shadow:0 0 0 12px rgba(var(--pc),.04),0 0 0 24px rgba(var(--pc),.03);animation:ptspin 18s linear infinite;pointer-events:none}
 @keyframes ptspin{to{transform:rotate(360deg)}}
-/* ===== warp transition into a project page ===== */
+/* ===== "Show full project": the card picture lifts out and glides to the centre, the same neon shutter
+   used between project pages closes behind it, and the title decodes in. The project page opens with an
+   identical shutter and title, so the hand-off is seamless. ===== */
 #pjw{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden;--ac:25,240,255}
 #pjw.on{visibility:visible;pointer-events:all}
-#pjw canvas{position:absolute;inset:0;width:100%;height:100%;z-index:3}
-#pjw .bd{position:absolute;left:0;right:0;height:calc(100%/12 + 1px);background:#070b16;z-index:2;transition:transform .55s cubic-bezier(.77,0,.18,1)}
-#pjw .bd:nth-child(4n+2){background:#0a1222}
-#pjw .bd::after{content:"";position:absolute;top:0;bottom:0;width:3px;background:rgb(var(--ac));box-shadow:0 0 18px rgb(var(--ac))}
-#pjw .bd:nth-child(even){transform:translateX(-102%)}#pjw .bd:nth-child(even)::after{left:0}
-#pjw .bd:nth-child(odd){transform:translateX(102%)}#pjw .bd:nth-child(odd)::after{right:0}
-#pjw.cl .bd{transform:none}
-#pjw .ghost{position:fixed;z-index:4;object-fit:cover;transition:all .9s cubic-bezier(.7,0,.2,1);box-shadow:0 0 0 2px rgb(var(--ac)),0 0 60px rgba(var(--ac),.6);filter:saturate(1.3)}
-#pjw.cl .ghost{opacity:0;filter:blur(6px) saturate(2)}
-#pjw .hd{position:absolute;inset:0;z-index:5;display:grid;place-items:center;opacity:0;transition:opacity .3s .25s}
-#pjw.cl .hd{opacity:1}
-#pjw .hd>div{position:relative;text-align:center;width:min(640px,90vw)}
-#pjw .hd svg{position:absolute;left:50%;top:50%;width:min(520px,92vw);height:min(520px,92vw);transform:translate(-50%,-50%);overflow:visible}
-#pjw .hd svg circle{fill:none;stroke:rgb(var(--ac));transform-origin:50% 50%}
-#pjw .hd svg .r1{stroke-dasharray:4 10;stroke-width:1.5;animation:pjr 3s linear infinite}
-#pjw .hd svg .r2{stroke-dasharray:120 40 10 40;stroke-width:3;opacity:.7;animation:pjr 2s linear infinite reverse}
-#pjw .hd svg .r3{stroke-dasharray:2 6;stroke-width:8;opacity:.25;animation:pjr 6s linear infinite}
-@keyframes pjr{to{transform:rotate(360deg)}}
-#pjw .hd em{display:block;font:500 13px 'JetBrains Mono',monospace;color:rgb(var(--ac));letter-spacing:.3em}
-#pjw .hd b{display:block;font:700 clamp(32px,6.5vw,84px)/1.02 'Chakra Petch',sans-serif;color:#fff;text-shadow:0 0 30px rgb(var(--ac));margin:12px 0 16px;word-break:break-word}
-#pjw .hd b.long{font-size:clamp(24px,3.6vw,44px)}
-#pjw .pg{display:block;width:min(360px,70vw);height:3px;margin:0 auto;background:rgba(var(--ac),.2);position:relative}
-#pjw .pg s{position:absolute;left:0;top:0;bottom:0;width:0;background:rgb(var(--ac));box-shadow:0 0 14px rgb(var(--ac))}
-#pjw pre{font:12px/1.6 'JetBrains Mono',monospace;color:#bff7ff;text-align:left;width:min(360px,70vw);margin:16px auto 0;min-height:6.4em;white-space:pre-wrap}
-#pjw pre i{color:rgb(var(--ac));font-style:normal}
-#pjw .fl{position:absolute;inset:0;z-index:6;background:#fff;opacity:0;pointer-events:none}
-#pjw.fx .fl{animation:pjfl .35s}
-@keyframes pjfl{30%{opacity:.55}100%{opacity:0}}
-.glt{animation:glt .38s steps(2) 1}
-.glt .m img{animation:gltc .38s steps(3) 1}
-@keyframes glt{0%{transform:translate(0)}20%{transform:translate(-6px,2px);filter:drop-shadow(4px 0 #ff3fd2) drop-shadow(-4px 0 #19f0ff)}40%{transform:translate(5px,-2px);clip-path:inset(10% 0 30% 0)}60%{transform:translate(-3px,1px);clip-path:inset(40% 0 5% 0)}80%{transform:translate(3px,0);filter:hue-rotate(90deg)}100%{transform:none;clip-path:none;filter:none}}
-@keyframes gltc{33%{transform:scale(1.08) translateX(-4px);filter:hue-rotate(160deg) saturate(3)}66%{transform:scale(1.04) translateX(4px)}}
+#pjw .pjb{position:absolute;left:0;right:0;height:calc(100%/12 + 1px);background:#070b16;z-index:2;transition:transform .75s cubic-bezier(.77,0,.18,1)}
+#pjw .pjb:nth-child(4n+2){background:#0a1222}
+#pjw .pjb::after{content:"";position:absolute;top:0;bottom:0;width:3px;background:rgb(var(--ac));box-shadow:0 0 18px rgb(var(--ac))}
+#pjw .pjb:nth-child(odd){transform:translateX(-102%)}#pjw .pjb:nth-child(odd)::after{right:0}
+#pjw .pjb:nth-child(even){transform:translateX(102%)}#pjw .pjb:nth-child(even)::after{left:0}
+#pjw.cl .pjb{transform:none}
+#pjw .dim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 50%,rgba(6,9,18,.5),rgba(3,5,10,.9));opacity:0;transition:opacity .4s ease}
+#pjw.on .dim{opacity:1}
+#pjw .pjg{position:fixed;z-index:4;overflow:hidden;background:#000;transform-origin:0 0;will-change:transform,opacity;box-shadow:0 0 0 1px rgb(var(--ac)),0 0 46px rgba(var(--ac),.45),0 30px 80px rgba(0,0,0,.7)}
+#pjw .pjg img{width:100%;height:100%;object-fit:cover;display:block}
+#pjw .pjg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%);transform:translateX(-110%);animation:pjsh .8s .2s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes pjsh{to{transform:translateX(110%)}}
+#pjw .hd{position:absolute;inset:0;z-index:5;display:grid;place-items:center;opacity:0;transform:scale(.94);transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+#pjw.tx .hd{opacity:1;transform:none}
+#pjw .hd>div{text-align:center;padding:0 20px}
+#pjw .hd em{display:block;font:500 13px 'JetBrains Mono',monospace;color:rgb(var(--ac));letter-spacing:.3em;font-style:normal}
+#pjw .hd b{display:block;font:700 clamp(36px,7vw,90px)/1 'Chakra Petch',sans-serif;color:#fff;text-shadow:0 0 30px rgb(var(--ac));margin:12px 0 16px}
+#pjw .hd i{display:block;width:min(360px,70vw);height:3px;margin:0 auto;background:rgb(var(--ac));box-shadow:0 0 14px rgb(var(--ac));transform:scaleX(0);transition:transform .45s cubic-bezier(.65,0,.35,1) .06s}
+#pjw.tx .hd i{transform:none}
+.pjgo #fxc{display:none}
+.card.pjp,.pat.pjp{transform:scale(.985);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+/* ===== back from a project page: the shutter is already shut when the page appears, opens on the projects ===== */
+#pjin{display:none;position:fixed;inset:0;z-index:300;pointer-events:none;--ac:25,240,255}
+.pjin #pjin{display:block;pointer-events:all}
+#pjin .pjb{position:absolute;left:0;right:0;height:calc(100%/12 + 1px);background:#070b16;transition:transform .75s cubic-bezier(.77,0,.18,1)}
+#pjin .pjb:nth-child(4n+2){background:#0a1222}
+#pjin .pjb::after{content:"";position:absolute;top:0;bottom:0;width:3px;background:rgb(var(--ac));box-shadow:0 0 18px rgb(var(--ac))}
+#pjin .pjb:nth-child(odd)::after{right:0}#pjin .pjb:nth-child(even)::after{left:0}
+#pjin.out .pjb:nth-child(odd){transform:translateX(-102%)}#pjin.out .pjb:nth-child(even){transform:translateX(102%)}
+#pjin .hd{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .25s,transform .5s}
+#pjin.out .hd{opacity:0;transform:scale(1.15)}
+#pjin .hd>div{text-align:center}
+#pjin .hd em{display:block;font:500 13px 'JetBrains Mono',monospace;color:rgb(var(--ac));letter-spacing:.3em;font-style:normal}
+#pjin .hd b{display:block;font:700 clamp(36px,7vw,90px)/1 'Chakra Petch',sans-serif;color:#fff;text-shadow:0 0 30px rgb(var(--ac));margin:12px 0 16px}
+#pjin .hd i{display:block;width:min(360px,70vw);height:3px;background:rgb(var(--ac));margin:0 auto;box-shadow:0 0 14px rgb(var(--ac))}
+.pjin body{overflow:hidden}
+.card.pjhl{animation:pjhl 1.8s ease-out .5s}
+@keyframes pjhl{0%{box-shadow:inset 0 0 0 2px rgb(var(--hl)),inset 0 0 60px rgba(var(--hl),.35)}100%{box-shadow:inset 0 0 0 2px rgba(var(--hl),0),inset 0 0 60px rgba(var(--hl),0)}}
 </style>
 <link rel="stylesheet" href="assets/fx.css">
 </head>
 <body>
+<div id="pjin" aria-hidden="true"><i class="pjb" style="top:calc(100%/12*0);transition-delay:0.000s"></i><i class="pjb" style="top:calc(100%/12*1);transition-delay:0.035s"></i><i class="pjb" style="top:calc(100%/12*2);transition-delay:0.070s"></i><i class="pjb" style="top:calc(100%/12*3);transition-delay:0.105s"></i><i class="pjb" style="top:calc(100%/12*4);transition-delay:0.140s"></i><i class="pjb" style="top:calc(100%/12*5);transition-delay:0.175s"></i><i class="pjb" style="top:calc(100%/12*6);transition-delay:0.020s"></i><i class="pjb" style="top:calc(100%/12*7);transition-delay:0.055s"></i><i class="pjb" style="top:calc(100%/12*8);transition-delay:0.090s"></i><i class="pjb" style="top:calc(100%/12*9);transition-delay:0.125s"></i><i class="pjb" style="top:calc(100%/12*10);transition-delay:0.160s"></i><i class="pjb" style="top:calc(100%/12*11);transition-delay:0.195s"></i><div class="hd"><div><em>RETURNING · PORTFOLIO</em><b>Projects</b><i></i></div></div></div>
+<script>try{var q=JSON.parse(sessionStorage.getItem("pjback")||"null"),m=(document.referrer||"").match(/projects\/([a-z-]+)\.html/),A={greenvault:"61,255,154",plugpal:"255,178,62",emma:"25,240,255",avitron:"255,63,210","gait-analysis":"170,140,255"},c=q&&q.ac||m&&A[m[1]];if(c)document.getElementById("pjin").style.setProperty("--ac",c)}catch(e){}</script>
 <noscript><main style="max-width:820px;margin:30px auto;padding:24px;background:#fff;color:#111;font-family:system-ui,sans-serif;line-height:1.6"><h1>Sayantan Panda</h1><p>Roboticist / Embedded System Developer. MS Mobile Robotics at the University of Bonn, Germany.</p><p>I’m the kind of person who loves taking things apart just to figure out how to put them back together—better, smarter, and sometimes cheaper. Whether it’s building gadgets from scratch or giving old ones a fresh twist with eco-friendly materials, I’m always up for a challenge. Robotics, embedded systems, AI—those are my playgrounds. And yeah, I’m a bit of a “last-minute engineer,” thriving on the adrenaline rush of turning wild ideas into reality just in time!</p><p>But life isn’t all circuits and code. I’m a gamer at heart, I hold a Master’s degree in Fine Art (robots and art coexist in my universe), and photography is my way of capturing the magic around me. I love cooking, especially when I’m experimenting in the kitchen like it’s another lab, and I’m always eager to meet new people, share stories and grow through connections.</p><p>Currently I am doing my MS in Mobile Robotics at the University of Bonn, with a focus on SLAM, navigation, localization and ROS 2.</p><h2>Projects</h2><ul><li><a href="projects/greenvault.html"><b>GreenVault: Solar-Powered, AI-Driven, IoT-Enabled Smart Storage for Sustainable Agriculture</b></a> (Sept 2024 – Nov 2024, SRMIST). Smart storage with IoT sensing, YOLOv8 spoilage detection, solar power and a mobile app. Patent published.</li><li><a href="projects/plugpal.html"><b>PlugPal</b></a> (Dec 2023 – present, SRMIST). Autonomous six-axis robotic arm for EV charging with YOLOv8 port detection and ROS 2 control.</li><li><a href="projects/emma.html"><b>EMMA: Enhanced Multitasking Medical Assistant</b></a> (since Feb 2024, SRMIST). Hospital assistant robot for registration, vital signs, chatbot and emergency alerts. Patent published.</li><li><a href="projects/avitron.html"><b>AViTRoN: Advanced Vision Track Routing and Navigation</b></a> (since Dec 2023, SRMIST). YOLOv8 charging-port detection and ROS navigation for EV charging robots.</li><li><a href="projects/gait-analysis.html"><b>Analyzing Gait Angle Variations in Healthy Individuals and Knee Osteoarthritis Patients Utilizing Non-invasive IMU Sensors</b></a> (SRMIST). Wearable IMU knee monitor with threshold alerts. Patent published.</li><li><a href="https://github.com/Sayantan001/multitasking-weather-robot"><b>Multi-Tasking and Weather Forecasting Robot using ATmega328P</b></a> (Oct 2022 – Feb 2023, SRMIST).</li><li><a href="https://github.com/Sayantan001/self-sorting-dustbin"><b>Self-Sorting Dustbin</b></a> (Sep 2022 – Jan 2023, SRMIST).</li></ul><h2>Experience</h2><ul><li><b>R&amp;D Engineer, Robotics and AI Trainer</b>, Reboot Robotics Academy | Aug 2025 – Aug 2026 | Kolkata, India</li><li><b>Research Intern</b>, National Institute of Ocean Technology (Ministry of Earth Sciences, Govt. of India) | Dec 2023 – Jan 2024 | Tamil Nadu, India</li><li><b>Undergraduate Researcher</b>, Centre for Wireless EV Charging Station, Department of EEE, SRMIST | Nov 2023 – Jun 2024 | India</li><li><b>Domain Lead, Embedded Systems</b>, iEMbotics Lab, Tech Park 1306A, SRMIST | Funded by the Naval Research Board, DRDO | Aug 2021 – Mar 2025 | India</li></ul><h2>Publications</h2><ul><li><a href="https://www.taylorfrancis.com/chapters/edit/10.1201/9781003768654-38/automation-healthcare-robotic-approach-patient-registration-vital-sign-tracking-chatbot-interaction-sayantan-panda-sankhadeep-dutta-gowtham-ammanamanchi-samiappan-dhanalakshmi">Automation in Healthcare: A Robotic Approach for Patient Registration, Vital Sign Tracking, and Chatbot Interaction</a>. Sayantan Panda, Sankhadeep Dutta, Gowtham Ammanamanchi, Samiappan Dhanalakshmi | Computing Communication and Intelligence, Taylor &amp; Francis, 2026 (book chapter)</li><li><a href="https://www.sciencedirect.com/science/article/pii/S2590123025015087">Integrated design and YOLO based control framework for autonomous EV charging robot platforms</a>. V.C. Mahaadevan, Narayanamoorthi R, ShanmugamPillai Pushparaj Logeshwer, Harshit Jain, Sayantan Panda, Petr Moldrik, Tomas Novak, Radomir Gono | Results in Engineering 26 (2025) 105438</li><li><a href="https://ieeexplore.ieee.org/abstract/document/10401234">AViTRoN: Advanced Vision Track Routing and Navigation for Autonomous Charging of Electric Vehicles</a>. V.C. Mahaadevan, Narayanamoorthi R, Sayantan Panda, Sankhaddep Dutta, Gerard Dooly (SRMIST, India; University of Limerick, Ireland)</li><li><a href="https://link.springer.com/chapter/10.1007/978-981-99-9562-2_35">Advanced Real-Time Monitoring System for Marine Net Pens: Integrating Sensors, GPRS, GPS, and IoT with Embedded Systems</a>. Sayantan Panda, Narayanamoorthi R, Samiappan Dhanalakshmi (SRMIST, India)</li><li><a href="https://link.springer.com/chapter/10.1007/978-981-97-8946-7_5">Analyzing Gait Angle Variations in Healthy Individuals and Knee Osteoarthritis Patients Utilizing Non-invasive IMU Sensors</a>. Madhavan Bharanidivya, Sayantan Panda, Samiappan Dhanalakshmi (SRMIST, India)</li><li><a href="https://ieeexplore.ieee.org/abstract/document/10990617">Integrating Intelligent Chatbots in Healthcare: AI Based Healthcare Chatbot</a>. Sushmit Singh Rathore, Rohit Ghosh, Sayantam Giri, Agniva Mukherjee, Priyanshu Raj, Sayantan Panda, S. Latha, Samiappan Dhanalakshmi (SRMIST, India)</li></ul><h2>Patents</h2><ul><li>A System and Method For Multitasking Medical Assistance. Published, publication no. 52/2024 (27/12/2024), application no. 202441066981 (filed 04/09/2024).</li><li>A Storage System For Agricultural Produce And A Method Thereof. Published, publication no. 12/2025 (21/03/2025), application no. 202541019684 (filed 05/03/2025).</li><li>Analysing Gait Angle Variations in Healthy Individuals and Knee Osteoarthritis Patients Utilizing Non-Invasive IMU Sensors. Published, publication no. 17/2025 (25/04/2025), application no. 202541027916 (filed 25/03/2025).</li></ul><h2>Education</h2><ul><li><b>Master of Science, Mobile Robotics</b>, University of Bonn, Germany | In progress</li><li><b>Bachelor of Technology, Electronics and Communication Engineering</b>, S.R.M Institute of Science and Technology | CGPA 9.61 / 10 | May 2025</li><li><b>Higher Secondary, Pure Science</b>, Pathfinder Higher Secondary Public School | 72%</li><li><b>Secondary</b>, Belda Gangadhar Academy | 92%</li></ul><h2>Skills</h2><ul><li><b>Programming:</b> C, C++, Python</li><li><b>Robotics and AI:</b> ROS / ROS 2, YOLOv8, Jetson Nano</li><li><b>Computer-Aided Design:</b> AutoCAD, Fusion 360</li><li><b>Circuit Simulation and Design:</b> LTspice, PSpice, PCB design</li><li><b>FPGA Design:</b> Altera Quartus, Xilinx ISE, ModelSim, Xilinx Vivado</li><li><b>Development Boards:</b> Arduino, Raspberry Pi, STM32, Wi-Fi and Bluetooth SoC</li></ul><h2>Contact</h2><p><a href="mailto:sayantanpanda123@gmail.com">sayantanpanda123@gmail.com</a></p><ul><li><a href="https://www.linkedin.com/in/sayantan-panda/">LinkedIn</a></li><li><a href="https://github.com/Sayantan001">GitHub</a></li><li><a href="https://orcid.org/0009-0006-4051-6273">ORCID</a></li><li><a href="https://www.scopus.com/authid/detail.uri?authorId=58834830400">Scopus</a></li><li><a href="https://scholar.google.com/citations?user=wGkxHxUAAAAJ&amp;hl=en">Google Scholar</a></li><li><a href="https://www.instagram.com/sayantan__panda?knvt=bG1jamo1aWFiM3Y4&utm_source=qr">Instagram</a></li></ul></main></noscript>
 
 <canvas id="bg" aria-hidden="true"></canvas>
@@ -740,7 +752,7 @@ if(matchMedia("(pointer:fine)").matches){const cr=document.createElement("div");
  document.addEventListener("pointerover",e=>{cr.classList.toggle("hv",!!(e.target.closest&&e.target.closest("a,button,.g,.pc,.rg-i,#pe,.ldr-c")))})}
 {const cvb=$("#cvb");fetch(cvb.getAttribute("href"),{method:"HEAD"}).then(r=>{if(r.status===404)cvb.style.display="none"}).catch(()=>{});
  const cpb=$("#cpb");cpb.onclick=()=>{const t=cpb.textContent;navigator.clipboard.writeText(cpb.dataset.e).then(()=>{cpb.textContent=LANG==="de"?"Kopiert!":"Copied!";setTimeout(()=>{cpb.textContent=t},1600)})}}
-if(!sessionStorage.getItem("booted")){const bo=$("#bo"),bp=$("#bop"),L=["SP-OS v2.0 booting...","[ ok ] power rails","[ ok ] lidar spinning, 96 beams","[ ok ] point cloud, 18k points on gpu","[ ok ] ik solver, 6 joints","[ ok ] rotors armed","[ ok ] loading portfolio"];bo.style.display="flex";let i=0,fin=false;
+if(!sessionStorage.getItem("booted")&&!document.documentElement.classList.contains("pjin")){const bo=$("#bo"),bp=$("#bop"),L=["SP-OS v2.0 booting...","[ ok ] power rails","[ ok ] lidar spinning, 96 beams","[ ok ] point cloud, 18k points on gpu","[ ok ] ik solver, 6 joints","[ ok ] rotors armed","[ ok ] loading portfolio"];bo.style.display="flex";let i=0,fin=false;
  const done=()=>{if(fin)return;fin=true;clearInterval(iv);bo.classList.add("crt");sessionStorage.setItem("booted","1");setTimeout(()=>bo.remove(),900)};
  const iv=setInterval(()=>{if(i<L.length){bp.textContent+=(i?"\n":"")+L[i++];beep(300+i*90,.04,.02)}else{clearInterval(iv);bp.insertAdjacentHTML("beforeend",'<i class="bobar"></i><span class="ag">ACCESS GRANTED</span>');setTimeout(done,1100)}},150);bo.onclick=done}else $("#bo").remove();
 
@@ -765,48 +777,60 @@ if(!sessionStorage.getItem("booted")){const bo=$("#bo"),bp=$("#bop"),L=["SP-OS v
  ck.addEventListener("click",e=>{if(e.target===ck)close()});$("#ckb").onclick=open;
  addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();ck.style.display==="flex"?close():open()}})}
 
-/* ===== warp transition into a project page: the card glitches, its picture flies to the centre,
-   neon bands slam shut over the page while a hyperspace field streaks out and the project title decodes.
-   The project page starts covered by the same bands and slides them away, so the hand-off is seamless. ===== */
+/* ===== "Show full project": the card picture glides to the centre, the neon shutter used between
+   project pages closes behind it and the project title decodes in. The project page starts behind the same
+   shutter with the same title and slides it open, so the hand-off is seamless. ===== */
 {const ov=document.createElement("div");ov.id="pjw";ov.setAttribute("aria-hidden","true");
- ov.innerHTML=Array.from({length:12},(_,b)=>`<i class="bd" style="top:calc(100%/12*${b});transition-delay:${((b%6)*.035+(b>>1)%2*.02).toFixed(3)}s"></i>`).join("")+
-  `<canvas></canvas><div class="hd"><div><svg viewBox="0 0 100 100"><circle class="r3" cx="50" cy="50" r="48"/><circle class="r1" cx="50" cy="50" r="44"/><circle class="r2" cx="50" cy="50" r="39"/></svg><em></em><b></b><i class="pg"><s></s></i><pre></pre></div></div><i class="fl"></i>`;
+ ov.innerHTML=Array.from({length:12},(_,b)=>`<i class="pjb" style="top:calc(100%/12*${b});transition-delay:${((b%6)*.035+(b>5?.02:0)).toFixed(3)}s"></i>`).join("")+
+  `<i class="dim"></i><div class="hd"><div><em></em><b></b><i></i></div></div>`;
  document.body.appendChild(ov);
- const cv=ov.querySelector("canvas"),cx=cv.getContext("2d"),em=ov.querySelector("em"),tb=ov.querySelector(".hd b"),pg=ov.querySelector(".pg s"),pre=ov.querySelector("pre");
- const GLY="01<>/\\|#$%&*+=?ABCDEFXYZ",RM=()=>matchMedia("(prefers-reduced-motion:reduce)").matches;let busy=false;
- const short=t=>t.split(/[:(]/)[0].trim();
+ const em=ov.querySelector(".hd em"),tb=ov.querySelector(".hd b");
+ const GLY="01<>/\\|#$%&*+=?ABCDEFXYZ",RM=()=>matchMedia("(prefers-reduced-motion:reduce)").matches;let busy=false,T=[];
+ const short=t=>t.split(/[:(]/)[0].trim(),later=(f,ms)=>T.push(setTimeout(f,ms));
+ const decode=(txt,ms)=>{const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/ms);let s="";
+  for(let j=0;j<txt.length;j++)s+=txt[j]===" "||j/txt.length<k?txt[j]:GLY[Math.random()*GLY.length|0];tb.textContent=s;if(k<1)requestAnimationFrame(f)})(t0)};
  const pjGo=a=>{if(busy)return;const i=+a.dataset.i,o=D.projects[i],href=a.getAttribute("href");
   if(RM()){location.href=href;return}busy=true;
-  const ac=o.ac||"25,240,255",name=i===4?"Gait Angle Analysis":short(o.t),num=String(D.projects.filter(p=>p.p).indexOf(o)+1).padStart(2,"0");
-  ov.style.setProperty("--ac",ac);em.textContent=(LANG==="de"?"PROJEKT ":"PROJECT ")+num+" / 05";tb.className=name.length>14?"long":"";pre.innerHTML="";pg.style.width="0";
-  const card=a.closest(".card,.pat");if(card){card.classList.remove("glt");void card.offsetWidth;card.classList.add("glt")}
-  try{sessionStorage.setItem("pjwarp","1")}catch(e){}beep(220,.25,.04);
-  /* the card picture flies to the centre */
-  const im=card&&card.querySelector(".m img");let gh=null;
-  if(im&&im.complete&&im.naturalWidth){const r=im.getBoundingClientRect();gh=im.cloneNode();gh.className="ghost";gh.removeAttribute("loading");
-   Object.assign(gh.style,{left:r.left+"px",top:r.top+"px",width:r.width+"px",height:r.height+"px"});ov.appendChild(gh)}
+  const ac=o.ac||"25,240,255",name=i===4?"Gait Angle Analysis":short(o.t),lab="PROJECT "+String(D.projects.filter(p=>p.p).indexOf(o)+1).padStart(2,"0")+" / 05";
+  ov.style.setProperty("--ac",ac);em.textContent=lab;tb.textContent="";document.documentElement.classList.add("pjgo");
+  try{sessionStorage.setItem("pjwarp","1");sessionStorage.removeItem("pjback")}catch(e){}beep(220,.18,.03);
+  /* the card picture lifts out of its frame and glides to the centre (FLIP, transform only) */
+  const card=a.closest(".card,.pat"),im=card&&card.querySelector(".m img");let gh=null,W2=0,H2=0;
+  if(card)card.classList.add("pjp");
+  if(im&&im.complete&&im.naturalWidth){const r=im.getBoundingClientRect(),q=im.naturalWidth/im.naturalHeight;
+   let w=r.width,h=r.height;if(w/h>q)w=h*q;else h=w/q;const x=r.left+(r.width-w)/2,y=r.top+(r.height-h)/2;
+   H2=Math.min(innerHeight*.58,460);W2=H2*q;if(W2>innerWidth*.82){W2=innerWidth*.82;H2=W2/q}
+   const X2=(innerWidth-W2)/2,Y2=(innerHeight-H2)/2;
+   gh=document.createElement("div");gh.className="pjg";gh.innerHTML=`<img src="${im.currentSrc||im.src}" alt="">`;
+   Object.assign(gh.style,{left:X2+"px",top:Y2+"px",width:W2+"px",height:H2+"px"});ov.appendChild(gh);im.style.visibility="hidden";
+   gh.animate([{transform:`translate(${x-X2}px,${y-Y2}px) scale(${w/W2})`},{transform:"none"}],{duration:720,easing:"cubic-bezier(.2,.8,.2,1)",fill:"both"})}
   ov.classList.add("on");
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{if(gh){const w=Math.min(innerWidth*.5,420),h=w*.75;Object.assign(gh.style,{left:(innerWidth-w)/2+"px",top:(innerHeight-h)/2+"px",width:w+"px",height:h+"px",transform:"rotate(-4deg) scale(1.15)"})}}));
-  setTimeout(()=>{ov.classList.add("cl");beep(880,.08,.03)},380);
-  /* hyperspace streaks from the click point */
-  const d=Math.min(devicePixelRatio,2),W=innerWidth,H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
-  const r0=a.getBoundingClientRect(),ox=r0.left+r0.width/2,oy=r0.top+r0.height/2,ST=Array.from({length:260},()=>({a:Math.random()*6.283,r:Math.random()*40,v:2+Math.random()*7,w:Math.random()<.25}));
-  const t0=performance.now();let raf;
-  (function f(t){raf=requestAnimationFrame(f);const k=(t-t0)/1000,sp=1+k*k*14,mx=ox+(W/2-ox)*Math.min(1,k*1.6),my=oy+(H/2-oy)*Math.min(1,k*1.6);
-   cx.fillStyle=`rgba(6,9,18,${k<.35?.08:.28})`;cx.fillRect(0,0,W,H);
-   for(const s of ST){const r1=s.r;s.r+=s.v*sp;if(s.r>Math.hypot(W,H)){s.r=Math.random()*20;s.a=Math.random()*6.283}
-    const c=Math.cos(s.a),n=Math.sin(s.a);cx.strokeStyle=s.w?"rgba(255,255,255,.9)":`rgba(${ac},.85)`;cx.lineWidth=s.w?1:1.6;
-    cx.beginPath();cx.moveTo(mx+c*r1,my+n*r1);cx.lineTo(mx+c*s.r,my+n*s.r);cx.stroke()}})(t0);
-  /* title decode + loading readout */
-  const L=["mount /projects/"+href.split("/").pop().replace(".html","").split("#")[0],"load assets ......... ok","calibrate sensors ... ok","spin up renderer .... ok"];
-  (function f(t){const k=Math.min(1,(t-t0-380)/900);if(k>0){let s="";for(let j=0;j<name.length;j++)s+=name[j]===" "||j/name.length<k?name[j]:GLY[Math.random()*GLY.length|0];tb.textContent=s;
-    pg.style.width=(k*100)+"%";const n=Math.min(L.length,Math.floor(k*L.length+.3));pre.innerHTML=L.slice(0,n).map(l=>"<i>&gt;</i> "+l).join("\n")+"\n<i>&gt;</i> "+Math.round(k*100)+"%"}
-   if(k<1)requestAnimationFrame(f);else{tb.textContent=name;pre.innerHTML=L.map(l=>"<i>&gt;</i> "+l).join("\n")+"\n<i>&gt;</i> 100%  ready"}})(t0);
-  setTimeout(()=>{ov.classList.add("fx");beep(1320,.12,.03)},1380);
-  setTimeout(()=>{cancelAnimationFrame(raf);location.href=href},1560)}
- const pjReset=()=>{busy=false;ov.className="";ov.querySelectorAll(".ghost").forEach(g=>g.remove());cx.clearRect(0,0,cv.width,cv.height)}
+  later(()=>ov.classList.add("cl"),140);
+  /* the picture hands over to the title card */
+  later(()=>{if(gh)gh.animate([{opacity:1,transform:"none",filter:"blur(0)"},{opacity:0,transform:`translate(${W2*.04}px,${H2*.04}px) scale(.92)`,filter:"blur(6px)"}],{duration:300,easing:"cubic-bezier(.4,0,1,1)",fill:"forwards"})},580);
+  later(()=>{ov.classList.add("tx");decode(name,500);beep(880,.06,.02)},gh?720:420);
+  later(()=>{tb.textContent=name;em.textContent=lab+" · LOADED"},1240);
+  later(()=>{location.href=href},1320)}
+ /* coming back with the browser's back button: open the shutter again instead of leaving it shut */
+ const pjReset=()=>{T.forEach(clearTimeout);T=[];busy=false;document.documentElement.classList.remove("pjgo");
+  document.querySelectorAll(".pjp").forEach(c=>{c.classList.remove("pjp");const m=c.querySelector(".m img");if(m)m.style.visibility=""});
+  ov.querySelectorAll(".pjg").forEach(g=>g.remove());
+  if(!ov.classList.contains("on"))return;ov.classList.remove("tx");requestAnimationFrame(()=>{ov.classList.remove("cl");setTimeout(()=>{if(!busy)ov.className=""},950)})}
  document.addEventListener("click",e=>{const a=e.target.closest("a.pj");if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;e.preventDefault();pjGo(a)});
  addEventListener("pageshow",e=>{if(e.persisted)pjReset()});
+ /* ===== back from a project page: jump (no scrolling) to the card of that project while the shutter is shut, then open it ===== */
+ {const pc=document.getElementById("pjin");let q=null;try{q=JSON.parse(sessionStorage.getItem("pjback")||"null");sessionStorage.removeItem("pjback")}catch(e){}
+  if(!q){const m=(document.referrer||"").match(/projects\/([a-z-]+\.html)/),o=m&&D.projects.find(p=>p.p==="projects/"+m[1]);q={f:m?m[1]:null,ac:o?o.ac:null}}
+  if(pc&&document.documentElement.classList.contains("pjin")){
+   const root=document.documentElement,place=()=>{const a=q&&q.f&&document.querySelector(`#projects a.pj[href$="${q.f}"]`),c=a&&a.closest(".card"),tg=c||document.getElementById("projects");
+    if(!tg)return null;const r=tg.getBoundingClientRect(),y=c?scrollY+r.top-Math.max(80,(innerHeight-r.height)/2):scrollY+r.top-64;
+    root.style.scrollBehavior="auto";scrollTo(0,Math.max(0,y));return c};
+   let done=false;const open=()=>{if(done)return;done=true;root.classList.remove("pjin");const c=place();root.style.scrollBehavior="";
+    if(c&&q.ac){c.style.setProperty("--hl",q.ac);c.classList.add("pjhl");setTimeout(()=>c.classList.remove("pjhl"),2600)}
+    requestAnimationFrame(()=>{pc.classList.add("out");setTimeout(()=>pc.remove(),1100)})};
+   place();
+   Promise.race([(document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>new Promise(r=>setTimeout(r,120))),new Promise(r=>setTimeout(r,900))]).then(open)}
+  else if(pc)pc.remove()}
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.25});document.querySelectorAll(".pat").forEach(p=>io.observe(p))}
 /* ===== language: English / German ===== */
 const DE={"About":"Über mich","Projects":"Projekte","Experience":"Erfahrung","Skills":"Skills","Publications":"Publikationen","Lab":"Labor","Education":"Ausbildung","Achievements":"Auszeichnungen","Art":"Kunst","Photography":"Fotografie","Contact":"Kontakt","Patents":"Patente",
